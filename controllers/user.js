@@ -6,7 +6,9 @@ module.exports = {
         const Joi = require('joi');
         const schema = Joi.object().keys({
             firstName: Joi.string().min(4).max(50).required(),
-            lastName: Joi.string().min(3).max(60).required()
+            lastName: Joi.string().min(3).max(60).required(),
+            nickname: Joi.optional(),
+            role: Joi.string().valid(['admin', 'writer', 'guest']).optional()
         });
         const data = req.body;
 
@@ -14,14 +16,22 @@ module.exports = {
             if (err) {
                 res.status(400).json({
                     status: 'error',
-                    message: 'Invalid request data: Please make sure that firstName and lastName are not empty',
+                    message: 'Sorry, invalid request data: Please make sure that firstName and lastName are not empty, also role can accept only one of these values: admin, writer or guest',
+                    requirements: {
+                        role: 'field can accept only one of these values: admin, writer or guest',
+                        firstName: 'should not be shorter that 4 characters',
+                        lastName: 'minimal length 3 characters',
+                        recommendation: 'Please make sure that all fields fit the requirements and try send again'
+                    },
                     data: data
                 });
             } else {
                 User.create(
                     {
                         firstName: req.body.firstName,
-                        lastName: req.body.lastName
+                        lastName: req.body.lastName,
+                        role: req.body.role,
+                        nickname: req.body.nickname
                     },
                     function (error, user) {
                         res.status(200).json({

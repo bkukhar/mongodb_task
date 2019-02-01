@@ -13,6 +13,6 @@ const user = new Schema({
         collection: 'users'
     });
 
-user.set('validateBeforeSave', false);
+// user.set('validateBeforeSave', false);
 
 module.exports = mongoose.model('User', user);

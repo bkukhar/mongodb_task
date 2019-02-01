@@ -8,7 +8,7 @@ module.exports = {
             title: Joi.string().min(5).max(400).required(),
             description: Joi.string().min(5).max(5000).required(),
             owner: Joi.string().required(),
-            category: Joi.required()
+            category: Joi.string().valid(['sport', 'games', 'history']).required()
         });
         const data = req.body;
 
@@ -16,7 +16,14 @@ module.exports = {
             if (err) {
                 res.status(400).json({
                     status: 'error',
-                    message: 'Please make sure that tittle, description, owner and category fields are not empty',
+                    message: 'Sorry, please make sure that tittle, description, owner and category fields are not empty',
+                    requirements: {
+                        category: 'field can accept only one of these values: sport, games or history',
+                        title: 'should not be shorter that 5 characters',
+                        description: 'minimal length 5 characters',
+                        owner: 'user id of article owner',
+                        recommendation: 'Please make sure that all fields fit the requirements and try send again'
+                    },
                     data: data
                 });
             } else {
@@ -54,7 +61,7 @@ module.exports = {
                                             status: 'success',
                                             message: 'Article was created successfully',
                                             data: article,
-                                            data2: user
+                                            userinfo: user
                                         });
                                     });
 

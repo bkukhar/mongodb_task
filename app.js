@@ -10,7 +10,7 @@ const mongoose = require('mongoose');
 const dev_db_url = 'mongodb://test:password4321@ds139341.mlab.com:39341/mongotask';
 const mongoDB = process.env.MONGODB_URI || dev_db_url;
 
-mongoose.connect(mongoDB, { useNewUrlParser: true });
+mongoose.connect(mongoDB, {useNewUrlParser: true});
 mongoose.set('useCreateIndex', true);
 mongoose.Promise = global.Promise;
 
