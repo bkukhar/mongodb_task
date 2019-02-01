@@ -8,6 +8,7 @@ module.exports = {
             title: Joi.string().min(5).max(400).required(),
             description: Joi.string().min(5).max(5000).required(),
             owner: Joi.string().required(),
+            subtitle: Joi.string().optional(),
             category: Joi.string().valid(['sport', 'games', 'history']).required()
         });
         const data = req.body;
