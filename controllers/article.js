@@ -173,7 +173,7 @@ module.exports = {
                 })
             } else {
                 const owner = article.owner;
-                User.findById(owner, function (error, user) {
+                User.find(owner, function (error, user) {
                     const change = user.numberOfArticles;
                     user.numberOfArticles = change - 1;
                     user.save({

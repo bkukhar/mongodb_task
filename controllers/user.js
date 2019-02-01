@@ -130,7 +130,8 @@ module.exports = {
                     message: 'User with ' + id + ' id cannot be found'
                 })
             } else {
-                res.json('User was successfully removed: ' + user.firstName)
+                Article.find({owner: id}).deleteMany().exec();
+                res.json('User was successfully removed: ' + user.firstName);
             }
         })
     }
